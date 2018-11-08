@@ -1,0 +1,43 @@
+{
+  "title": "Não-votos no primeiro turno por estado ao longo dos anos",
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/joseims/generals/master/validos_vs_demais.csv"
+  },
+  "layer": [
+    {
+      "selection": {"sel_estado": {"type": "single", "fields": ["estado"]}},
+      "transform": [
+        {
+          "filter": "datum.situacao == 'DEMAIS' && datum.turno == '1' && (datum.estado == 'Sergipe' || datum.estado == 'Rio de Janeiro')"
+        },
+        {"filter": {"field": "ano", "range": [2010, 2018]}}
+      ],
+      "format": {"type": "csv"},
+      "width": 800,
+      "height": 350,
+      "mark": {"type": "point", "line": true},
+      "encoding": {
+        "x": {
+          "field": "ano",
+          "type": "ordinal",
+          "axis": {"title": "Ano da eleição"}
+        },
+        "y": {
+          "field": "quantidade",
+          "type": "quantitative",
+          "stack": "zero",
+          "axis": {"title": "Nº de votos"}
+        },
+        "color": {
+          "condition": {
+            "selection": "sel_estado",
+            "field": "estado",
+            "type": "nominal"
+          },
+          "value": "#EFEFEF"
+        }
+      }
+    }
+  ]
+}
