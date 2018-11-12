@@ -25,5 +25,10 @@ val02 <- c('Branca','Preta','Amarela','Parda','Indígena','Não quero declarar')
 frame02 <- data.frame("Categoria" = cat02,"Value" = val02)
 result$QE_I02 = mapvalues(result$QE_I02,from=cat02,to=val02)
 
+#notas
+notas <- c(0,1,2,3,4)
+val_notas <- c("Entre 0 e 20","Entre 20 e 40","Entre 40 e 60","Entre 60 e 80","Entre 80 e 98,1")
+frame_notas <- data.frame("Categoria" = notas,"Value" = val_notas)
+result$nota <- mapvalues(result$nota,from=notas,to=val_notas)
 write_csv(result,"./show.csv")
 
