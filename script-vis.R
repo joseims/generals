@@ -1,10 +1,11 @@
 library(tidyverse)
 library(plyr)
-data <- read_csv("./workspace/vis/lab2/enade_2017_ufcg.csv")
+data <- read_csv("./Downloads/enade_2017_ufcg.csv")
+data <- data[data$CO_GRUPO == 4004,]
 result <-
   data %>% 
-  mutate(nota = as.integer(NT_GER/20), afirmativa = if_else(QE_I15 != 'A',"Sim","Não") )%>%
-    select(nota,QE_I08,QE_I04,QE_I05,QE_I02,afirmativa)
+  mutate(nota = as.integer(NT_GER/20), afirmativa = if_else(QE_I15 != 'A',"Sim","Não"),idade = NU_IDADE )%>%
+  select(nota,QE_I08,QE_I04,QE_I05,QE_I02,afirmativa,idade)
 
 #QE_I04/05
 cat0405 <- c('A','B','C','D','E','F')
@@ -17,7 +18,7 @@ result$QE_I05 = mapvalues(result$QE_I05,from=cat0405,to=val0405)
 cat08 <- c('A','B','C','D','E','F','G')
 val08 <- c('Até 1,5 salário mínimo (até R$ 1.405,50)','De 1,5 a 3 salários mínimos (R$ 1.405,51 a R$ 2.811,00)', 'De 3 a 4,5 salários mínimos (R$ 2.811,01 a R$ 4.216,50)','De 4,5 a 6 salários mínimos (R$ 4.216,51 a R$ 5.622,00)','De 6 a 10 salários mínimos (R$ 5. 622,01 a R$ 9.370,00)','De 10 a 30 salários mínimos (R$ 9.370,01 a R$ 28.110,00)','Acima de 30 salários mínimos (mais de R$ 28.110,00)')
 frame08 <- data.frame("Categoria" = cat08,"Value" = val08)
-result$QE_I08 = mapvalues(result$QE_I08,from=cat,to=val)
+result$QE_I08 = mapvalues(result$QE_I08,from=cat08,to=val08)
 
 #QE_I02
 cat02 <- cat0405
