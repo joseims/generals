@@ -19,7 +19,7 @@ sudo apt install /tmp/slack-desktop-*.deb
 #discord
 
 #git
-
+sudo apt install git
 
 
 #steam
