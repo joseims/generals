@@ -20,8 +20,9 @@ new_f = open(new,"w+")
 cards = {}
 for line in old_f.readlines():
     line = line[:-1]
+    print(line)
     number,name = line.split(" ",1)
     new_name = get_correct_name(name)
     if (new_name not in cards.keys()):
         cards[new_name] = 1
-        new_f.write("1 {}\n".format(new_name))
+        new_f.write("{} {}\n".format(number,new_name))
